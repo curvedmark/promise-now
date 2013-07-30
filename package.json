@@ -1,6 +1,6 @@
 {
   "name": "promise-now",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Barebone Promise/A+ implementation",
   "main": "lib/Promise.js",
   "directories": {
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "prepublish": "make",
-    "test": "mocha test/composer.js && promises-aplus-tests test/promise.js"
+    "test": "mocha test/composer.js && promises-aplus-tests test/promise.js && mocha test/promiseSync.js"
   },
   "repository": {
     "type": "git",
