@@ -9,9 +9,12 @@
   },
   "devDependencies": {
     "promises-aplus-tests": "*",
-    "mocha": "1.x"
+    "mocha": "1.x",
+    "uglify-js": "2.x",
+    "browserify": "2.x"
   },
   "scripts": {
+    "prepublish": "make",
     "test": "mocha test/composer.js && promises-aplus-tests test/promise.js"
   },
   "repository": {
