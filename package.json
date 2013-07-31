@@ -10,8 +10,7 @@
   "devDependencies": {
     "promises-aplus-tests": "*",
     "mocha": "1.x",
-    "uglify-js": "2.x",
-    "browserify": "2.x"
+    "uglify-js": "2.x"
   },
   "scripts": {
     "prepublish": "make",
