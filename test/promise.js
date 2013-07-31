@@ -1,4 +1,4 @@
-var Promise = require('../lib/Promise');
+var Promise = require('../Promise');
 
 var runAllComposers = Promise.prototype.runAllComposers;
 Promise.prototype.runAllComposers = function() {

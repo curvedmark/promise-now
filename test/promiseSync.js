@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Promise = require('../lib/Promise');
+var Promise = require('../Promise');
 
 describe('synchronous promise', function () {
 	it('should accept asynchronous promise', function (done) {

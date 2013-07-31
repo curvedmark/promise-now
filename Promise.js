@@ -1,4 +1,4 @@
-var Composer = require('./Composer');
+var Composer = require('compo');
 
 module.exports = Promise;
 

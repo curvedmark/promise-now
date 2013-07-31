@@ -2,10 +2,12 @@
   "name": "promise-now",
   "version": "0.2.1",
   "description": "Barebone Promise/A+ implementation",
-  "main": "lib/Promise.js",
+  "main": "Promise.js",
   "directories": {
-    "lib": "lib",
     "test": "test"
+  },
+  "dependencies": {
+    "compo": "*"
   },
   "devDependencies": {
     "promises-aplus-tests": "*",
@@ -13,8 +15,7 @@
     "uglify-js": "2.x"
   },
   "scripts": {
-    "prepublish": "make",
-    "test": "mocha test/composer.js && promises-aplus-tests test/promise.js && mocha test/promiseSync.js"
+    "test": "promises-aplus-tests test/promise.js && mocha test/promiseSync.js"
   },
   "repository": {
     "type": "git",
