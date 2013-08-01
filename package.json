@@ -1,6 +1,6 @@
 {
   "name": "promise-now",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Barebone Promise/A+ implementation",
   "main": "Promise.js",
   "directories": {
