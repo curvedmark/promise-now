@@ -14,9 +14,9 @@ function Promise() {
 Promise.prototype.then = function(cb, eb) {
 	var composer = new Composer();
 	composer.add(mergeCallbacks(cb, eb));
-	this.composers.push(composer);
 
-	if (this.state) this.runAllComposers();
+	if (this.state) this.runComposer(composer);
+	else this.composers.push(composer);
 
 	return {
 		then: function (cb, eb) {
@@ -42,11 +42,15 @@ Promise.prototype.reject = function (reason) {
 	return this;
 };
 
+Promise.prototype.runComposer = function (composer) {
+	composer.run(this.state, this.arg);
+};
+
 Promise.prototype.runAllComposers = function () {
-	while (this.composers.length) {
-		var composer = this.composers.shift();
-		composer.run(this.state, this.arg);
+	for (var i = 0, len = this.composers.length; i < len; ++i) {
+		this.composers[i].run(this.state, this.arg);
 	}
+	this.composers = null;
 };
 
 function isPromise(obj) {
