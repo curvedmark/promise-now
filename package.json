@@ -6,9 +6,6 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-    "compo": "*"
-  },
   "devDependencies": {
     "promises-aplus-tests": "*",
     "mocha": "1.x",

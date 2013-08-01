@@ -1,11 +1,11 @@
 var Promise = require('../Promise');
 
-var runComposer = Promise.prototype.runComposer;
-Promise.prototype.runComposer = function() {
+var runCallback = Promise.prototype.runCallback;
+Promise.prototype.runCallback = function() {
 	var self = this;
 	var args = arguments;
 	setImmediate(function () {
-		runComposer.apply(self, args);
+		runCallback.apply(self, args);
 	});
 };
 

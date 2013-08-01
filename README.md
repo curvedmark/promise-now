@@ -34,17 +34,13 @@ See the [Q tutorial](https://github.com/kriskowal/q#tutorial), if you are not fa
 promise.fulfill(value);
 ```
 
-Fullfil `promise` with `value`. This method only exists on the promises created by `new Promise()`, not on promises returned by `.then()`.
-
-Returns `promise`.
+Fullfil `promise` with `value`. Returns `promise`.
 
 ```javascript
 promise.reject(reason);
 ```
 
-Reject `promise` with `reason`. This method only exists on the promises created by `new Promise()`, not on promises returned by `.then()`.
-
-Returns `promise`.
+Reject `promise` with `reason`. Returns `promise`.
 
 ## Optionally being asynchonous
 
@@ -61,4 +57,4 @@ console.log(1);
 
 In other words, you will not put synchronous code after asynchronous function calls, it doesn't make a difference if `.then()` is asynchronous or not.
 
-By default, promise-now use synchronous `.then()`. If you need the asynchronous version, consider using another promise library, or patch promise-now youself (see `test/promise.js` on how it's done).
+By default, promise-now use synchronous `.then()`. If you need the asynchronous version, simply patch promise-now (see `test/promise.js` on how it's done).

@@ -1,36 +1,29 @@
-var Composer = require('compo');
-
-module.exports = Promise;
-
 var PENDING = 0;
 var FULFILLED = 1;
 var REJECTED = 2;
 
+module.exports = Promise;
+
 function Promise() {
 	this.state = PENDING;
-	this.composers = [];
+	this.callbacks = [];
 }
 
 Promise.prototype.then = function(cb, eb) {
-	var composer = new Composer();
-	composer.add(mergeCallbacks(cb, eb));
+	var promise = new Promise();
+	var callback = makeCallback(promise, cb, eb);
 
-	if (this.state) this.runComposer(composer);
-	else this.composers.push(composer);
+	if (this.state) this.runCallback(callback);
+	else this.callbacks.push(callback);
 
-	return {
-		then: function (cb, eb) {
-			composer.add(mergeCallbacks(cb, eb));
-			return this;
-		}
-	};
+	return promise;
 };
 
 Promise.prototype.fulfill = function (value) {
 	if (this.state) return this;
 	this.state = FULFILLED;
 	this.arg = value;
-	this.runAllComposers();
+	this.runAllCallbacks();
 	return this;
 };
 
@@ -38,49 +31,48 @@ Promise.prototype.reject = function (reason) {
 	if (this.state) return this;
 	this.state = REJECTED;
 	this.arg = reason;
-	this.runAllComposers();
+	this.runAllCallbacks();
 	return this;
 };
 
-Promise.prototype.runComposer = function (composer) {
-	composer.run(this.state, this.arg);
+Promise.prototype.runCallback = function (callback) {
+	callback(this.state, this.arg);
 };
 
-Promise.prototype.runAllComposers = function () {
-	for (var i = 0, len = this.composers.length; i < len; ++i) {
-		this.composers[i].run(this.state, this.arg);
+Promise.prototype.runAllCallbacks = function () {
+	for (var i = 0, len = this.callbacks.length; i < len; ++i) {
+		var callback = this.callbacks[i];
+		callback(this.state, this.arg);
 	}
-	this.composers = null;
+	this.callbacks = null;
 };
 
 function isPromise(obj) {
 	return obj && typeof obj.then === 'function';
 }
 
-function mergeCallbacks(cb, eb) {
-	return function (state, arg, next) {
+function makeCallback(promise, cb, eb) {
+	return function (state, arg) {
 		var fn;
-		if (state === FULFILLED && typeof (fn = cb) === 'function'
-			|| state === REJECTED && typeof (fn = eb) === 'function'
-		) {
-			try {
-				arg = fn(arg);
-			} catch (err) {
-				arg = err;
-				state = REJECTED;
-				return next(state, arg);
-			}
-
-			if (isPromise(arg)) {
-				return arg.then(function (value) {
-					next(FULFILLED, value);
-				}, function (reason) {
-					next(REJECTED, reason);
-				});
-			}
-
-			state = FULFILLED;
+		if (state === FULFILLED) {
+			if (typeof (fn = cb) !== 'function') return promise.fulfill(arg);
+		} else {
+			if (typeof (fn = eb) !== 'function') return promise.reject(arg);
 		}
-		next(state, arg);
+
+		try {
+			arg = fn(arg);
+		} catch (err) {
+			arg = err;
+			return promise.reject(arg);
+		}
+
+		if (!isPromise(arg)) return promise.fulfill(arg);
+
+		arg.then(function (value) {
+			promise.fulfill(value);
+		}, function (reason) {
+			promise.reject(reason);
+		});
 	};
 }
