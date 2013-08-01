@@ -15,7 +15,7 @@
     "uglify-js": "2.x"
   },
   "scripts": {
-    "test": "promises-aplus-tests test/promise.js && mocha test/promiseSync.js"
+    "test": "promises-aplus-tests test/promise.js --bail --reporter dot && mocha test/promiseSync.js"
   },
   "repository": {
     "type": "git",

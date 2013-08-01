@@ -2,8 +2,12 @@ var Composer = require('compo');
 
 module.exports = Promise;
 
+var PENDING = 0;
+var FULFILLED = 1;
+var REJECTED = 2;
+
 function Promise() {
-	this.state = 'pending';
+	this.state = PENDING;
 	this.composers = [];
 }
 
@@ -12,7 +16,7 @@ Promise.prototype.then = function(cb, eb) {
 	composer.add(mergeCallbacks(cb, eb));
 	this.composers.push(composer);
 
-	if (this.state !== 'pending') this.runAllComposers();
+	if (this.state) this.runAllComposers();
 
 	return {
 		then: function (cb, eb) {
@@ -23,16 +27,16 @@ Promise.prototype.then = function(cb, eb) {
 };
 
 Promise.prototype.fulfill = function (value) {
-	if (this.state !== 'pending') return this;
-	this.state = 'fulfilled';
+	if (this.state) return this;
+	this.state = FULFILLED;
 	this.arg = value;
 	this.runAllComposers();
 	return this;
 };
 
 Promise.prototype.reject = function (reason) {
-	if (this.state !== 'pending') return this;
-	this.state = 'rejected';
+	if (this.state) return this;
+	this.state = REJECTED;
 	this.arg = reason;
 	this.runAllComposers();
 	return this;
@@ -52,26 +56,26 @@ function isPromise(obj) {
 function mergeCallbacks(cb, eb) {
 	return function (state, arg, next) {
 		var fn;
-		if (state === 'fulfilled' && typeof (fn = cb) === 'function'
-			|| state === 'rejected' && typeof (fn = eb) === 'function'
+		if (state === FULFILLED && typeof (fn = cb) === 'function'
+			|| state === REJECTED && typeof (fn = eb) === 'function'
 		) {
 			try {
 				arg = fn(arg);
 			} catch (err) {
 				arg = err;
-				state = 'rejected';
+				state = REJECTED;
 				return next(state, arg);
 			}
 
 			if (isPromise(arg)) {
 				return arg.then(function (value) {
-					next('fulfilled', value);
+					next(FULFILLED, value);
 				}, function (reason) {
-					next('rejected', reason);
+					next(REJECTED, reason);
 				});
 			}
 
-			state = 'fulfilled';
+			state = FULFILLED;
 		}
 		next(state, arg);
 	};
