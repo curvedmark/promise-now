@@ -11,7 +11,7 @@ function Promise() {
 
 Promise.prototype.then = function(cb, eb) {
 	var promise = new Promise();
-	var callback = makeCallback(promise, cb, eb);
+	var callback = makeCallback(cb, eb, promise);
 
 	if (this.state) this.runCallback(callback);
 	else this.callbacks.push(callback);
@@ -51,7 +51,7 @@ function isPromise(obj) {
 	return obj && typeof obj.then === 'function';
 }
 
-function makeCallback(promise, cb, eb) {
+function makeCallback(cb, eb, promise) {
 	return function (state, arg) {
 		var fn;
 		if (state === FULFILLED) {
