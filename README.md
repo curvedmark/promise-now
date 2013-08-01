@@ -1,6 +1,14 @@
-# Promise Now
+# promise-now
 
-Barebone [Promise/A+](http://promisesaplus.com/) implementation. `.then()` being asynchronous is optional.
+Barebone [Promise/A+](http://promisesaplus.com/) implementation.
+
+## Features
+
+- Extremely small (< 1kb minified), [extremely fast](http://jsperf.com/wqfwewefewrw/17)
+
+- `.then()` being asynchronous is optional.
+
+- Passing the [Promises/A+ Compliance Test Suite](https://github.com/promises-aplus/promises-tests)
 
 ## Installation
 
@@ -42,7 +50,7 @@ promise.reject(reason);
 
 Reject `promise` with `reason`. Returns `promise`.
 
-## Optionally being asynchonous
+## `.then()` being asynchonous
 
 If you can be sure that you will never write code like:
 
@@ -55,6 +63,6 @@ promise.then(function() {
 console.log(1);
 ```
 
-In other words, you will not put synchronous code after asynchronous function calls, it doesn't make a difference if `.then()` is asynchronous or not.
+In other words, you will not put synchronous code after asynchronous function calls, then it doesn't make a difference if `.then()` is asynchronous or not.
 
 By default, promise-now use synchronous `.then()`. If you need the asynchronous version, simply patch promise-now (see `test/promise.js` on how it's done).
