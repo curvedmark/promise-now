@@ -55,16 +55,17 @@ function makeCallback(cb, eb, promise) {
 	return function (state, arg) {
 		var fn;
 		if (state === FULFILLED) {
-			if (typeof (fn = cb) !== 'function') return promise.fulfill(arg);
+			if (typeof cb !== 'function') return promise.fulfill(arg);
+			fn = cb;
 		} else {
-			if (typeof (fn = eb) !== 'function') return promise.reject(arg);
+			if (typeof eb !== 'function') return promise.reject(arg);
+			fn = eb;
 		}
 
 		try {
 			arg = fn(arg);
 		} catch (err) {
-			arg = err;
-			return promise.reject(arg);
+			return promise.reject(err);
 		}
 
 		if (!isPromise(arg)) return promise.fulfill(arg);
