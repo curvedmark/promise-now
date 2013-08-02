@@ -19,30 +19,31 @@ Promise.prototype.then = function(cb, eb) {
 	return promise;
 };
 
-Promise.prototype.fulfill = function (value) {
+Promise.prototype.fulfill = function (value, context) {
 	if (this.state) return this;
 	this.state = FULFILLED;
 	this.arg = value;
+	this.context = context;
 	this.runAllCallbacks();
 	return this;
 };
 
-Promise.prototype.reject = function (reason) {
+Promise.prototype.reject = function (reason, context) {
 	if (this.state) return this;
 	this.state = REJECTED;
 	this.arg = reason;
+	this.context = context;
 	this.runAllCallbacks();
 	return this;
 };
 
 Promise.prototype.runCallback = function (callback) {
-	callback(this.state, this.arg);
+	callback(this.state, this.arg, this.context);
 };
 
 Promise.prototype.runAllCallbacks = function () {
 	for (var i = 0, len = this.callbacks.length; i < len; ++i) {
-		var callback = this.callbacks[i];
-		callback(this.state, this.arg);
+		this.callbacks[i](this.state, this.arg, this.context);
 	}
 	this.callbacks = null;
 };
@@ -52,28 +53,28 @@ function isPromise(obj) {
 }
 
 function makeCallback(cb, eb, promise) {
-	return function (state, arg) {
+	return function (state, arg, context) {
 		var fn;
 		if (state === FULFILLED) {
-			if (typeof cb !== 'function') return promise.fulfill(arg);
+			if (typeof cb !== 'function') return promise.fulfill(arg, context);
 			fn = cb;
 		} else {
-			if (typeof eb !== 'function') return promise.reject(arg);
+			if (typeof eb !== 'function') return promise.reject(arg, context);
 			fn = eb;
 		}
 
 		try {
-			arg = fn(arg);
+			arg = fn.call(context, arg);
 		} catch (err) {
-			return promise.reject(err);
+			return promise.reject(err, context);
 		}
 
-		if (!isPromise(arg)) return promise.fulfill(arg);
+		if (!isPromise(arg)) return promise.fulfill(arg, context);
 
 		arg.then(function (value) {
-			promise.fulfill(value);
+			promise.fulfill(value, context);
 		}, function (reason) {
-			promise.reject(reason);
+			promise.reject(reason, context);
 		});
 	};
 }

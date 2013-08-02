@@ -4,7 +4,7 @@ Barebone [Promise/A+](http://promisesaplus.com/) implementation.
 
 ## Features
 
-- Extremely small (< 1kb minified), [extremely fast](http://jsperf.com/wqfwewefewrw/17)
+- Extremely small (~ 1kb minified), [extremely fast](http://jsperf.com/wqfwewefewrw/17)
 
 - `.then()` being asynchronous is optional.
 
@@ -39,16 +39,16 @@ promise.then(fulfullCallack, rejectCallback);
 See the [Q tutorial](https://github.com/kriskowal/q#tutorial), if you are not familiar with promises.
 
 ```javascript
-promise.fulfill(value);
+promise.fulfill(value, [context]);
 ```
 
-Fullfil `promise` with `value`. Returns `promise`.
+Fullfil `promise` with `value`. `this` keywords equals to `context` in callbacks if provided. Returns `promise`.
 
 ```javascript
-promise.reject(reason);
+promise.reject(reason, [context]);
 ```
 
-Reject `promise` with `reason`. Returns `promise`.
+Reject `promise` with `reason`. `this` keywords equals to `context` in callbacks if provided.Returns `promise`.
 
 ## `.then()` being asynchonous
 

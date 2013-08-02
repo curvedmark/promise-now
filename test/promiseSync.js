@@ -17,4 +17,18 @@ describe('synchronous promise', function () {
 			assert.deepEqual(result, [1, 2]);
 		}).then(done, done);
 	});
+
+	it('should allow context to be set', function (done) {
+		var promise = new Promise().fulfill({}, 1);
+		promise.then(function () {
+			assert.equal(this, 1)
+		}).then(done, done);
+	});
+
+	it('should allow context to be set on child promise', function (done) {
+		var promise = new Promise().fulfill({}, 1);
+		promise.then().then(function () {
+			assert.equal(this, 1);
+		}).then(done, done);
+	});
 });
