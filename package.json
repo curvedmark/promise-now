@@ -9,6 +9,7 @@
   "devDependencies": {
     "promises-aplus-tests": "*",
     "mocha": "1.x",
+    "mocha-as-promised": "1.x",
     "uglify-js": "2.x"
   },
   "scripts": {
