@@ -33,7 +33,7 @@ function addOne(num) {
 ## API
 
 ```javascript
-promise.then(fulfullCallack, rejectCallback);
+promise.then(fulfillCallack, rejectCallback);
 ```
 
 See the [Q tutorial](https://github.com/kriskowal/q#tutorial), if you are not familiar with promises.
@@ -42,15 +42,15 @@ See the [Q tutorial](https://github.com/kriskowal/q#tutorial), if you are not fa
 promise.fulfill(value, [context]);
 ```
 
-Fullfil `promise` with `value`. `this` keywords equals to `context` in callbacks if provided. Returns `promise`.
+Fulfill `promise` with `value`. `this` keyword equals to `context` in callbacks if provided. Returns `promise`.
 
 ```javascript
 promise.reject(reason, [context]);
 ```
 
-Reject `promise` with `reason`. `this` keywords equals to `context` in callbacks if provided.Returns `promise`.
+Reject `promise` with `reason`. `this` keyword equals to `context` in callbacks if provided.Returns `promise`.
 
-## `.then()` being asynchonous
+## `.then()` being asynchronous
 
 If you can be sure that you will never write code like:
 
