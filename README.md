@@ -36,7 +36,9 @@ function addOne(num) {
 promise.then(fulfillCallack, rejectCallback);
 ```
 
-See the [Q tutorial](https://github.com/kriskowal/q#tutorial), if you are not familiar with promises.
+Call `fulfillCallack(value)` if `promise` is fulfilled with `value`.
+
+Or call `rejectCallback(reason)` if `promise` is rejected with `reason`.
 
 ```javascript
 promise.fulfill(value, [context]);
