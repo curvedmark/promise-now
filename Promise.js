@@ -78,4 +78,4 @@ Promise.prototype.createCallback = function (cb, eb, promise) {
 
 		promise.resolve(state, arg, context);
 	};
-}
+};
