@@ -32,27 +32,24 @@ function addOne(num) {
 
 ## API
 
-```javascript
-promise.then(fulfillCallack, rejectCallback);
-```
+
+### promise.then(fulfillCallack, rejectCallback);
 
 Call `fulfillCallack(value)` if `promise` is fulfilled with `value`.
 
 Or call `rejectCallback(reason)` if `promise` is rejected with `reason`.
 
-```javascript
-promise.fulfill(value, [context]);
-```
+Return a new promise.
+
+### promise.fulfill(value, [context]);
 
 Fulfill `promise` with `value`. `this` keyword equals to `context` in callbacks if provided. Returns `promise`.
 
-```javascript
-promise.reject(reason, [context]);
-```
+### promise.reject(reason, [context]);
 
 Reject `promise` with `reason`. `this` keyword equals to `context` in callbacks if provided.Returns `promise`.
 
-## `.then()` being asynchronous
+## .then() being asynchronous
 
 If you can be sure that you will never write code like:
 
