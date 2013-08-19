@@ -2,8 +2,9 @@
   "name": "promise-now",
   "version": "0.5.1",
   "description": "Barebone Promise/A+ implementation",
-  "main": "Promise.js",
+  "main": "lib/Promise.js",
   "directories": {
+    "lib": "lib",
     "test": "test"
   },
   "devDependencies": {

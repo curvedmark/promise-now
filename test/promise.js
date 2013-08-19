@@ -1,4 +1,4 @@
-var Promise = require('../Promise');
+var Promise = require('..');
 
 var runCallback = Promise.prototype.runCallback;
 Promise.prototype.runCallback = function() {

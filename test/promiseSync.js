@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Promise = require('../Promise');
+var Promise = require('..');
 require("mocha-as-promised")();
 
 describe('synchronous promise', function () {
