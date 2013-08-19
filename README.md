@@ -4,7 +4,7 @@ Barebone [Promise/A+](http://promisesaplus.com/) implementation.
 
 ## Features
 
-- Extremely small (~ 1kb minified), [extremely fast](http://jsperf.com/wqfwewefewrw/17)
+- Extremely small (~ 1kb minified), [extremely fast](http://jsperf.com/wqfwewefewrw/18)
 
 - `.then()` being asynchronous is optional.
 
