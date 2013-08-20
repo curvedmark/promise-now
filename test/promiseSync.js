@@ -3,7 +3,7 @@ var Promise = require('..');
 require("mocha-as-promised")();
 
 describe('synchronous promise', function () {
-	it('should accept asynchronous promise', function () {
+	it("should accept asynchronous promise", function () {
 		var result = [];
 		var promise = new Promise().fulfill();
 
@@ -20,7 +20,7 @@ describe('synchronous promise', function () {
 		});
 	});
 
-	it('should allow context to be set', function () {
+	it("should allow context to be set", function () {
 		var promise = new Promise().fulfill({}, 1);
 
 		return promise.then(function () {
@@ -28,11 +28,27 @@ describe('synchronous promise', function () {
 		});
 	});
 
-	it('should allow context to be set on child promise', function () {
+	it("should allow context to be set on child promise", function () {
 		var promise = new Promise().fulfill({}, 1);
 
 		return promise.then().then(function () {
 			assert.equal(this, 1);
 		});
+	});
+
+	it("should throw error if a rejected promise is ended", function () {
+		var promise = new Promise().reject(new Error('msg123'));
+
+		assert.throws(function () {
+			promise.end();
+		}, /msg123/);
+	});
+
+	it("should throw error if an ended promise is rejected", function () {
+		var promise = new Promise().end();
+
+		assert.throws(function () {
+			promise.reject(new Error('msg123'));
+		}, /msg123/);
 	});
 });

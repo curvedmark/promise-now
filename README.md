@@ -49,6 +49,10 @@ Fulfill `promise` with `value`. `this` keyword equals to `context` in callbacks 
 
 Reject `promise` with `reason`. `this` keyword equals to `context` in callbacks if provided.Returns `promise`.
 
+### promise.end();
+
+Throw with reason if promise is rejected, or flag the promise so when it's rejected the reason will be thrown. Should be called at the end of `.then()` chain.
+
 ## .then() being asynchronous
 
 If you can be sure that you will never write code like:
