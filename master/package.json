@@ -1,0 +1,37 @@
+{
+  "name": "promise-now",
+  "version": "1.1.0",
+  "description": "Barebone Promise/A+ implementation",
+  "main": "lib/Promise.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {
+    "promises-aplus-tests": "*",
+    "mocha": "1.x",
+    "mocha-as-promised": "1.x"
+  },
+  "scripts": {
+    "test": "promises-aplus-tests test/promise.js --bail --reporter dot && mocha test/promiseSync.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/curvedmark/promise-now.git"
+  },
+  "keywords": [
+    "promise",
+    "promises",
+    "promises-a",
+    "promises-aplus",
+    "async",
+    "deferred",
+    "future",
+    "flow control"
+  ],
+  "author": "Glen Huang <curvedmark@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/curvedmark/promise-now/issues"
+  }
+}
