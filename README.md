@@ -33,7 +33,7 @@ function addOne(num) {
 ## API
 
 
-### promise.then(fulfillCallack, rejectCallback);
+### promise.then([fulfillCallack], [rejectCallback]);
 
 Call `fulfillCallack(value)` if `promise` is fulfilled with `value`.
 
@@ -43,15 +43,21 @@ Return a new promise.
 
 ### promise.fulfill(value, [context]);
 
-Fulfill `promise` with `value`. `this` keyword equals to `context` in callbacks if provided. Returns `promise`.
+Fulfill `promise` with `value`. `this` keyword equals to `context` in callbacks if provided.
+
+Return original `promise`.
 
 ### promise.reject(reason, [context]);
 
-Reject `promise` with `reason`. `this` keyword equals to `context` in callbacks if provided.Returns `promise`.
+Reject `promise` with `reason`. `this` keyword equals to `context` in callbacks if provided.
 
-### promise.end();
+Return original `promise`.
 
-Throw with reason if promise is rejected, or flag the promise so when it's rejected the reason will be thrown. Should be called at the end of `.then()` chain.
+### promise.done([fulfillCallack], [rejectCallback]);
+
+Like `.then()`, but throw with reason (asynchronously) if promise is rejected. Should be called at the end of `.then()` chain.
+
+Return `undefined`.
 
 ## .then() being asynchronous
 

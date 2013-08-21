@@ -35,20 +35,4 @@ describe('synchronous promise', function () {
 			assert.equal(this, 1);
 		});
 	});
-
-	it("should throw error if a rejected promise is ended", function () {
-		var promise = new Promise().reject(new Error('msg123'));
-
-		assert.throws(function () {
-			promise.end();
-		}, /msg123/);
-	});
-
-	it("should throw error if an ended promise is rejected", function () {
-		var promise = new Promise().end();
-
-		assert.throws(function () {
-			promise.reject(new Error('msg123'));
-		}, /msg123/);
-	});
 });
