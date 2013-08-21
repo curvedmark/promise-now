@@ -1,7 +1,7 @@
 all: subtree promise-now.js
 
 subtree:
-	@git merge --quiet -X subtree=master master
+	@git merge --quiet -X subtree=master master -m "Merge branch 'master' into browser"
 
 promise-now.js: master/lib/Promise.js node_modules/.bin/uglifyjs
 	@echo '(function () {' >$@
